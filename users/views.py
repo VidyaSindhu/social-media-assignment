@@ -86,6 +86,36 @@ class FollowUserView(CreateAPIView, DestroyAPIView):
             status=status.HTTP_204_NO_CONTENT
         )
 
+
+class UnfollowUserView(CreateAPIView):
+    APIView = ['POST', 'DELETE']
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JSONWebTokenAuthentication]
+    queryset = UserFollower.objects.all()
+    serializer_class = FollowUserSerializer
+
+    def post(self, request, *args, **kwargs):
+        unfollow_id = kwargs.pop('id')
+        user_id = request.user.id
+        try:
+            object = UserFollower.objects.get(follows=unfollow_id, user=user_id)
+        except UserFollower.DoesNotExist:
+            return Response(
+                data={
+                    "message": "You donot follow the specified user",
+                    "success": False
+                },
+                status=406
+            )
+        else:
+            object.delete()
+        return Response(
+            data={
+                "success":True
+            },
+            status=status.HTTP_204_NO_CONTENT
+        )
+
 class GetUserDetailView(RetrieveAPIView):
     APIView = ['GET']
     permission_classes = [IsAuthenticated]
