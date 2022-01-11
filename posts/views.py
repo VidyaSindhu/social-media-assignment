@@ -58,11 +58,10 @@ class LikePostView(CreateAPIView):
     def post(self, request, *args, **kwargs):
         liked_by = request.user
         post = kwargs.get('id')
-        request.data['post'] = post
-        request.data['liked_by'] = liked_by
+        post_instance = Post.objects.get(pk=post)
         try:
             object, created = PostLikedBy.objects.update_or_create(
-                post=post, liked_by=liked_by, defaults={'liked': True})
+                post=post_instance, liked_by=liked_by, defaults={'liked': True})
         except Exception as e:
             return Response(
                 data={
@@ -90,11 +89,10 @@ class UnlikePostView(CreateAPIView):
     def post(self, request, *args, **kwargs):
         liked_by = request.user
         post = kwargs.get('id')
-        request.data['post'] = post
-        request.data['liked_by'] = liked_by
+        post_instance = Post.objects.get(pk=post)
         try:
             object, created = PostLikedBy.objects.update_or_create(
-                post=post, liked_by=liked_by, defaults={'liked': False})
+                post=post_instance, liked_by=liked_by, defaults={'liked': False})
         except Exception as e:
             return Response(
                 data={
