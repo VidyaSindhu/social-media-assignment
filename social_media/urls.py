@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework_jwt.views import ObtainJSONWebToken, VerifyJSONWebToken
 
-from users.views import FollowUserView, GetUserDetailView, GetUsersList
+from users.views import FollowUserView, GetUserDetailView, GetUsersList, , UnfollowUserView
 from posts.views import CommentOnPostView, GetAllPostDetailsView, LikePostView, PostView, UnlikePostView
 
 urlpatterns = [
@@ -26,7 +26,7 @@ urlpatterns = [
     path('api/verify/', VerifyJSONWebToken.as_view()), #POST
     path('api/users/all', GetUsersList.as_view()), #GET
     path('api/follow/<int:id>/', FollowUserView.as_view()), #POST
-    path('api/unfollow/<int:id>/', FollowUserView.as_view()), #POST
+    path('api/unfollow/<int:id>/', UnfollowUserView.as_view()), #POST
     path('api/user', GetUserDetailView.as_view()), #GET
 
     #POST app
