@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework_jwt.views import ObtainJSONWebToken, VerifyJSONWebToken
 
-from users.views import FollowUserView, GetUserDetailView, GetUsersList, , UnfollowUserView
+from users.views import FollowUserView, GetUserDetailView, GetUsersList, UnfollowUserView
 from posts.views import CommentOnPostView, GetAllPostDetailsView, LikePostView, PostView, UnlikePostView
 
 urlpatterns = [
