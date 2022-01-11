@@ -62,29 +62,29 @@ class FollowUserView(CreateAPIView, DestroyAPIView):
                 status=406
             )
 
-    def destroy(self, request, *args, **kwargs):
-        try:
-            user_id = request.user.id
-            follows_id = kwargs.get('id')
-            if user_id != follows_id:
-                object = UserFollower.objects.get(
-                    user=user_id, follows=follows_id)
-        except UserFollower.DoesNotExist:
-            return Response(
-                data={
-                    "message": "You donot follow the specified user",
-                    "success": False
-                },
-                status=406
-            )
-        instance = object
-        self.perform_destroy(instance)
-        return Response(
-            data={
-                "success": True
-            },
-            status=status.HTTP_204_NO_CONTENT
-        )
+#     def destroy(self, request, *args, **kwargs):
+#         try:
+#             user_id = request.user.id
+#             follows_id = kwargs.get('id')
+#             if user_id != follows_id:
+#                 object = UserFollower.objects.get(
+#                     user=user_id, follows=follows_id)
+#         except UserFollower.DoesNotExist:
+#             return Response(
+#                 data={
+#                     "message": "You donot follow the specified user",
+#                     "success": False
+#                 },
+#                 status=406
+#             )
+#         instance = object
+#         self.perform_destroy(instance)
+#         return Response(
+#             data={
+#                 "success": True
+#             },
+#             status=status.HTTP_204_NO_CONTENT
+#         )
 
 
 class UnfollowUserView(CreateAPIView):
